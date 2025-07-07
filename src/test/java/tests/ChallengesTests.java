@@ -10,6 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static specs.ChallengesSpecs.defaultSpec;
 
 public class ChallengesTests extends TestBase {
 
@@ -90,7 +91,7 @@ public class ChallengesTests extends TestBase {
     @Test
     void getTodo2() {
         ExtractableResponse response =
-                given()
+                given(defaultSpec)
                         .header("X-Challenger", xChallengerHeader)
 
                         .when()
