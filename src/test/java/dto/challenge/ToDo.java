@@ -1,4 +1,4 @@
-package dto;
+package dto.challenge;
 
 public class ToDo {
     public int id;

@@ -13,5 +13,4 @@ public class ChallengesSpecs {
             .contentType(ContentType.JSON)
             .log()
             .all();
-
 }
