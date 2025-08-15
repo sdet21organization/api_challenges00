@@ -1,25 +1,27 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'maven:3.9.11-amazoncorretto-21' // Use official Maven image with JDK
+            args '-v $HOME/.m2:/root/.m2' // Cache Maven dependencies
+        }
+    }
     stages {
         stage('Build') {
             steps {
-                sh 'echo "Hello World"'
-                sh 'docker --version'
-                sh '''
-                    echo "Multiline shell steps works too"
-                    ls -lah
-                '''
+                sh 'mvn clean compile'
             }
         }
         stage('Test') {
             steps {
-                sh '/opt/maven/bin/mvn clean test'
+                sh 'mvn test'
+                junit '**/target/surefire-reports/*.xml' // Archive test results
             }
         }
+        // Add more stages as needed (package, deploy, etc.)
     }
     post {
         always {
-            junit 'target/surefire-reports/*.xml'
+            sh 'echo "That's all folks!"' // Placeholder for any cleanup or final steps
         }
     }
 }
