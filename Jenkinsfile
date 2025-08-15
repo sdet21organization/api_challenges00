@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker {
+        any {
             image 'maven:3.9.11-amazoncorretto-21' // Use official Maven image with JDK
             args '-v $HOME/.m2:/root/.m2' // Cache Maven dependencies
         }
