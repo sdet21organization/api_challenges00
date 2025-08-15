@@ -13,7 +13,7 @@ pipeline {
         }
         stage('Test') {
             steps {
-                sh '/opt/maven/bin/mvn test'
+                sh '/opt/maven/bin/mvn clean test'
             }
         }
     }
