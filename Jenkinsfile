@@ -21,7 +21,7 @@ pipeline {
     }
     post {
         always {
-            sh 'echo "That's all folks!"' // Placeholder for any cleanup or final steps
+            // Placeholder for any cleanup or final steps
         }
     }
 }
