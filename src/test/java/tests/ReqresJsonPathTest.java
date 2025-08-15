@@ -12,11 +12,12 @@ public class ReqresJsonPathTest extends ReqresBaseTest {
     public void testJsonPath() {
         String userId = "1";
         given().pathParam("userId", userId)
+                .header("x-api-key", "reqres-free-v1")
                 .when()
                 .get("api/users/{userId}")
                 .then()
                 .assertThat()
-                .statusCode(401)
+                .statusCode(200)
                 .contentType(ContentType.JSON)
                 .body("data.id", equalTo(1))
                 .body("support.text", containsString("Let Content Caddy"))
