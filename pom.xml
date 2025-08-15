@@ -78,7 +78,11 @@
             <version>2.0.16</version>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+        </dependency>
 
     </dependencies>
 
@@ -92,7 +96,7 @@
                     <testFailureIgnore>false</testFailureIgnore>
                     <argLine>
                         -Dfile.encoding=${project.build.sourceEncoding}
-                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                        <!-- -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar" -->
                     </argLine>
                 </configuration>
                 <dependencies>

@@ -1,7 +1,7 @@
 package tests;
 
-import dto.ChallengesResponse;
-import dto.Todos;
+import dto.challenge.ChallengesResponse;
+import dto.challenge.Todos;
 import io.restassured.response.ExtractableResponse;
 import io.restassured.response.Response;
 import org.junit.jupiter.api.Assertions;
@@ -10,13 +10,12 @@ import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static specs.ChallengesSpecs.defaultSpec;
 
 public class ChallengesTests extends TestBase {
 
-
     static String xChallengerHeader = "";
-
 
     @BeforeAll
     static void beforeAll() {
@@ -31,7 +30,6 @@ public class ChallengesTests extends TestBase {
                         .extract().response();
 
         xChallengerHeader = response.header("X-Challenger");
-
     }
 
     @Test
@@ -80,17 +78,17 @@ public class ChallengesTests extends TestBase {
                         .statusCode(200)
                         .extract();
 
-        Todos todossResponse = response.as(Todos.class);
+        Todos todosResponse = response.as(Todos.class);
 
-        Assertions.assertFalse(todossResponse.getTodos().get(0).isDoneStatus());
-        Assertions.assertFalse(todossResponse.getTodos().get(1).isDoneStatus());
-        Assertions.assertTrue(todossResponse.getTodos().size() > 5);
+        assertFalse(todosResponse.getTodos().get(0).isDoneStatus());
+        assertFalse(todosResponse.getTodos().get(1).isDoneStatus());
+        Assertions.assertTrue(todosResponse.getTodos().size() > 5);
 
     }
 
     @Test
     void getTodo2() {
-        ExtractableResponse response =
+        ExtractableResponse<Response> response =
                 given(defaultSpec)
                         .header("X-Challenger", xChallengerHeader)
 
@@ -102,17 +100,11 @@ public class ChallengesTests extends TestBase {
                         .body(matchesJsonSchemaInClasspath("schemas/todos_response.json"))
                         .extract();
 
-        Todos todossResponse = response.as(Todos.class);
+        Todos todosResponse = response.as(Todos.class);
 
-        Assertions.assertEquals(todossResponse.getTodos().get(0).getId(), 2, "Todo ID is not 2");
-        Assertions.assertEquals(todossResponse.getTodos().get(0).getTitle(), "file paperwork", "Todo title is not as expected");
-        Assertions.assertEquals(todossResponse.getTodos().get(0).getDescription(), "", "Todo description is not as expected");
-        Assertions.assertFalse(todossResponse.getTodos().get(0).isDoneStatus());
-
-
-
+        Assertions.assertEquals(2, todosResponse.getTodos().get(0).getId(), "Todo ID is not 2");
+        Assertions.assertEquals("file paperwork", todosResponse.getTodos().get(0).getTitle(), "Todo title is not as expected");
+        Assertions.assertEquals("", todosResponse.getTodos().get(0).getDescription(), "Todo description is not as expected");
+        assertFalse(todosResponse.getTodos().get(0).isDoneStatus());
     }
-
-
-
 }

@@ -1,4 +1,4 @@
-package dto;
+package dto.challenge;
 
 // @Data
 public class Challenge{
