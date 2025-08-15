@@ -16,7 +16,7 @@ public class ReqresJsonPathTest extends ReqresBaseTest {
                 .get("api/users/{userId}")
                 .then()
                 .assertThat()
-                .statusCode(200)
+                .statusCode(401)
                 .contentType(ContentType.JSON)
                 .body("data.id", equalTo(1))
                 .body("support.text", containsString("Let Content Caddy"))
